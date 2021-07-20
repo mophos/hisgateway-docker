@@ -1,0 +1,103 @@
+version: '2'
+services:
+  zookeeper:
+    image: debezium/zookeeper:1.6
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
+  kafka:
+    image: debezium/kafka:1.6
+    container_name: kafka
+    ports:
+      - 9092:9092
+    links:
+      - zookeeper
+    environment:
+      - ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+    volumes: 
+      - ./logs:/kafka/logs
+      - ./data:/kafka/data
+  connect:
+    image: debezium/connect:1.6
+    container_name: connect
+    ports:
+      - 8083:8083
+    environment:
+      # - BOOTSTRAP_SERVERS=kafka:9092
+      - GROUP_ID=XXXXX
+      - CONFIG_STORAGE_TOPIC=XXXXX_hisgateway_connect_configs
+      - OFFSET_STORAGE_TOPIC=XXXXX_hisgateway_connect_offsets
+      - STATUS_STORAGE_TOPIC=XXXXX_hisgateway_connect_statuses
+      - BOOTSTRAP_SERVERS=broker1.gateway.moph.go.th:9093,broker2.gateway.moph.go.th:9093,broker3.gateway.moph.go.th:9093
+      - CONNECT_SECURITY_PROTOCOL=SSL
+      - CONNECT_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.10670.truststore.jks
+      - CONNECT_SSL_TRUSTSTORE_PASSWORD=PPPPP
+      - CONNECT_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.10670.keystore.jks
+      - CONNECT_SSL_KEYSTORE_PASSWORD=PPPPP
+      - CONNECT_SSL_KEY_PASSWORD=PPPPP
+      - CONNECT_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM= 
+      
+      - CONNECT_PRODUCER_BOOTSTRAP_SERVERS=broker1.gateway.moph.go.th:9093,broker2.gateway.moph.go.th:9093,broker3.gateway.moph.go.th:9093
+      - CONNECT_PRODUCER_SECURITY_PROTOCOL=SSL
+      - CONNECT_PRODUCER_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.XXXXX.truststore.jks
+      - CONNECT_PRODUCER_SSL_TRUSTSTORE_PASSWORD=PPPPP
+      - CONNECT_PRODUCER_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.XXXXX.keystore.jks
+      - CONNECT_PRODUCER_SSL_KEYSTORE_PASSWORD=PPPPP
+      - CONNECT_PRODUCER_SSL_KEY_PASSWORD=PPPPP
+      - CONNECT_PRODUCER_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM= 
+    links:
+      - kafka
+    volumes: 
+      - ./cert:/var/private/ssl
+    networks:
+      gw-network:
+        ipv4_address: 192.168.3.5
+  hisgateway-web:
+    image: mophos/hisgateway-client-web
+    container_name: hisgateway-web
+    restart: always
+    networks:
+      gw-network:
+        ipv4_address: 192.168.3.3
+  hisgateway-api:
+    image: mophos/hisgateway-client-api
+    restart: always
+    container_name: hisgateway-api
+    environment: 
+      - KAFKA_CONNECT_ENDPOINT=http://192.168.3.5:8083
+      - ICTPORTAL_ENDPOINT=https://oauth.moph.go.th/v1/login
+      - SECRET_KEY=123456
+    links: 
+      - connect
+    pid: "host"
+    networks:
+      gw-network:
+        ipv4_address: 192.168.3.4
+  hisgateway-mqtt:
+    image: mophos/hisgateway-client-mqtt
+    restart: always
+    container_name: hisgateway-mqtt
+    environment: 
+      - HOSPCODE=XXXXX
+    pid: "host"
+  nginx:
+    image: nginx:1.13.0-alpine
+    container_name: nginx
+    restart: always
+    ports: 
+    - "80:80"
+    volumes: 
+      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      gw-network:
+        ipv4_address: 192.168.3.2
+networks:
+  gw-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.3.0/24
