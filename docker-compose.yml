@@ -40,9 +40,9 @@ services:
       - STATUS_STORAGE_TOPIC=XXXXX_hisgateway_connect_statuses
       - BOOTSTRAP_SERVERS=broker1.gateway.moph.go.th:9093,broker2.gateway.moph.go.th:9093,broker3.gateway.moph.go.th:9093
       - CONNECT_SECURITY_PROTOCOL=SSL
-      - CONNECT_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.10670.truststore.jks
+      - CONNECT_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.XXXXX.truststore.jks
       - CONNECT_SSL_TRUSTSTORE_PASSWORD=PPPPP
-      - CONNECT_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.10670.keystore.jks
+      - CONNECT_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.XXXXX.keystore.jks
       - CONNECT_SSL_KEYSTORE_PASSWORD=PPPPP
       - CONNECT_SSL_KEY_PASSWORD=PPPPP
       - CONNECT_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM= 
