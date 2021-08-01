@@ -1,23 +1,21 @@
-1.ติดตั้ง Docker
+# คู่มือการติดตั้ง
 
-```markdown
-[https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
-[https://docs.docker.com/engine/install/debian](https://docs.docker.com/engine/install/debian)
-[https://docs.docker.com/engine/install/fedora](https://docs.docker.com/engine/install/fedora)
-[https://docs.docker.com/engine/install/ubuntu](https://docs.docker.com/engine/install/ubuntu)
-```
+## ติดตั้ง Docker
+1.ติดตั้ง Docker
+- [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
+- [https://docs.docker.com/engine/install/debian](https://docs.docker.com/engine/install/debian)
+- [https://docs.docker.com/engine/install/fedora](https://docs.docker.com/engine/install/fedora)
+- [https://docs.docker.com/engine/install/ubuntu](https://docs.docker.com/engine/install/ubuntu)
+
 
 2.ติดตั้ง Docker-compose
-
-```markdown
-[https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
-```
+- [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
 
 
 
-ตั้งค่า Database 
+## ตั้งค่า Database 
 
-Postgres
+### Postgres
 
 ```shell
 (1) Install plugin
@@ -36,7 +34,7 @@ Ubuntu /etc/postgresql/{{version}}/main/postgresql.conf
 CentOS /var/lib/pgsql/{{version}}/data/postgresql.conf 
 ```
 
-Mysql
+### Mysql
 
 ```shell
 (1) Configuration options in my.cnf/my.ini	
@@ -55,7 +53,7 @@ SHOW BINARY LOGS;
 GRANT SELECT, RELOAD, SHOW DATABASES, REPLICATION SLAVE, REPLICATION CLIENT
 ```
 
-SQL Server
+### SQL Server
 
 ```shell
 (1) ใช้คำสั่ง Query เพื่อเปิด CDC สำหรับฐานข้อมูล
@@ -114,7 +112,7 @@ SELECT t.name, t.is_tracked_by_cdc FROM sys.tables t WHERE t.is_tracked_by_cdc =
 
 
 
-Oracle
+### Oracle
 
 ```shell
 ORACLE_SID=ORACLCDB dbz_oracle sqlplus /nolog
