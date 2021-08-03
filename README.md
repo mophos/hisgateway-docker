@@ -131,3 +131,17 @@ exit;
 
 ref: https://debezium.io/documentation/reference/connectors/oracle.html#_preparing_the_database
 ```
+
+## ตั้งค่า ไฟล์ docker-compose.yaml 
+```
+แก้ไข xxxxx ให้เป็น รหัสโรงพยาบาล
+      - GROUP_ID=xxxxx_x
+      - CONFIG_STORAGE_TOPIC=xxxxx_hisgateway_connect_configs
+      - OFFSET_STORAGE_TOPIC=xxxxx_hisgateway_connect_offsets
+      - STATUS_STORAGE_TOPIC=xxxxx_hisgateway_connect_statuses
+      - CONNECT_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.xxxxx.truststore.jks
+      - CONNECT_PRODUCER_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.xxxxx.truststore.jks
+      - CONNECT_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.xxxxx.keystore.jks
+      - CONNECT_PRODUCER_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.xxxxx.keystore.jks
+      - HOSPCODE=xxxxx
+ ```
