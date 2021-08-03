@@ -144,4 +144,12 @@ ref: https://debezium.io/documentation/reference/connectors/oracle.html#_prepari
       - CONNECT_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.xxxxx.keystore.jks
       - CONNECT_PRODUCER_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.xxxxx.keystore.jks
       - HOSPCODE=xxxxx
+      
+ แก้ไข PPPPP ให้เป็น รหัสของ cert
+      - CONNECT_PRODUCER_SSL_TRUSTSTORE_PASSWORD=PPPPP
+      - CONNECT_PRODUCER_SSL_KEYSTORE_PASSWORD=PPPPP
+      - CONNECT_SSL_TRUSTSTORE_PASSWORD=PPPPP
+      - CONNECT_SSL_KEYSTORE_PASSWORD=PPPPP
+      - CONNECT_SSL_KEY_PASSWORD=PPPPP
+      - CONNECT_PRODUCER_SSL_KEY_PASSWORD=PPPPP
  ```
