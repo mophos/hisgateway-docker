@@ -152,4 +152,40 @@ ref: https://debezium.io/documentation/reference/connectors/oracle.html#_prepari
       - CONNECT_SSL_KEYSTORE_PASSWORD=PPPPP
       - CONNECT_SSL_KEY_PASSWORD=PPPPP
       - CONNECT_PRODUCER_SSL_KEY_PASSWORD=PPPPP
+ ตั้งค่า port 
+      จะมีให้ตั้งค่าอยู่ 2 จุด
+      connect:
+       ports:
+            - 8083:8083
+      nginx:
+       port:
+            - 80:80
+      โดยแก้เพียงเลขทางซ้าย หาก port ชนกับ port ในเครื่องที่ติดตั้ง
  ```
+ ## run docker-compose  
+ ```
+    คำสั่ง docker-compose up -d
+    ณ ตำแหน่งเดียวกับที่มีไฟล์ doker-compose.yaml อยู่
+```
+## เข้าใช้งาน web
+```
+    เข้าผ่าน localhost:80 ของเครื่องที่ติดตั้ง
+    port จะขึ้นกับ port ที่ตั้งใน nginx
+```
+## การสร้าง connectors
+```
+กด + New Connector
+  tab HIS database
+    เลือก HIS Type
+    เลือก database connector
+    ใส่ database address เป็น ip ของ database ที่ใช้งาน ตัวเดียวกับที่ทำการตั้งค่า
+    ใส่ database port
+    ใส่ database username
+    ใส่ database password
+    ใส่ database name
+tab MOPH Broker
+    ในส่วน keystore part และ truststore part
+       แก้ไข xxxxx ให้เป็น รหัสโรงพยาบาล
+    ในส่วน keystore password และ truststore password
+       นำ password จากไฟล์ password_xxxxx.txt มาใส่
+```
