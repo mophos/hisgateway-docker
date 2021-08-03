@@ -165,7 +165,7 @@ ref: https://debezium.io/documentation/reference/connectors/oracle.html#_prepari
  ## run docker-compose  
  ```
     คำสั่ง docker-compose up -d
-    ณ ตำแหน่งเดียวกับที่มีไฟล์ doker-compose.yaml อยู่
+    ณ ตำแหน่งเดียวกับที่มีไฟล์ docker-compose.yaml อยู่
 ```
 ## เข้าใช้งาน web
 ```
