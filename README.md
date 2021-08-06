@@ -19,8 +19,9 @@
 
 ```shell
 (1) Install plugin
-CentOS: sudo yum install wal2json13
-Ubuntu: sudo apt-get install postgresql-13-wal2json
+CentOS: sudo yum install wal2json<version>
+Ubuntu: sudo apt-get install postgresql-<version>-wal2json
+example postgres v.13 wal2json13 | postgresql-13-wal2json
 #ref https://github.com/eulerto/wal2json
 
 (2) Configuration options in postgresql.conf:
