@@ -29,6 +29,7 @@ wal_level = logical;
 max_replication_slots = 10;
 shared_preload_libraries = 'wal2json' 
 
+(3) Restert service postgres
 (PS) Show config path
 SHOW config_file
 Ubuntu /etc/postgresql/{{version}}/main/postgresql.conf
@@ -47,7 +48,9 @@ binlog_row_image=FULL
 expire_logs_days=7   บางเวอร์ชั่นใช้ binlog_expire_logs_seconds=
 log_slave_updates=on    ##กรณีตั้งค่าที่เครื่อง slave โดยใช้ของ mysql   ถ้าเป็น slaveโดยใช้ tools hosxp ไม่ต้องใส่
 
-(1)ทดสอบ Binlog โดยการเข้าไป Query ในฐานข้อมูลใช้คำสั่ง
+(2) restart service mysql
+
+(3)ทดสอบ Binlog โดยการเข้าไป Query ในฐานข้อมูลใช้คำสั่ง
 SHOW BINARY LOGS;
 
 (PS)
