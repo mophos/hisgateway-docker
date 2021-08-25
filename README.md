@@ -13,7 +13,7 @@
 
 
 
-## ตั้งค่า Database 
+## ตั้งค่า Database
 
 ### Postgres
 
@@ -26,18 +26,18 @@ Ubuntu: sudo apt-get install postgresql-13-wal2json
 (2) Configuration options in postgresql.conf:
 wal_level = logical;
 max_replication_slots = 10;
-shared_preload_libraries = 'wal2json' 
+shared_preload_libraries = 'wal2json'
 
 (PS) Show config path
 SHOW config_file
 Ubuntu /etc/postgresql/{{version}}/main/postgresql.conf
-CentOS /var/lib/pgsql/{{version}}/data/postgresql.conf 
+CentOS /var/lib/pgsql/{{version}}/data/postgresql.conf
 ```
 
 ### Mysql
 
 ```shell
-(1) Configuration options in my.cnf/my.ini	
+(1) Configuration options in my.cnf/my.ini
 server_id=10001
 log_bin=gwhis
 binlog_format=row
@@ -55,6 +55,15 @@ GRANT SELECT, RELOAD, SHOW DATABASES, REPLICATION SLAVE, REPLICATION CLIENT
 
 ### SQL Server
 
+> #### **IMPORTANT**
+> **Change data capture (CDC) is only available in the Enterprise, Developer, and Enterprise Evaluation editions**
+
+ถ้าหากใช้ Standard Edition จะรันคำสั่งนี้ไม่ได้ `EXEC sys.sp_cdc_enable_db` และจะติด Error ดังนี้
+
+> Msg 22988, Level 16, State 1, Server NAME, Procedure sp_cdc_enable_db,
+This instance of SQL Server is the Standard Edition (64-bit). Change data capture is only available in the Enterprise, Developer, and Enterprise Evaluation editions.
+> [42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]This instance of SQL Server is the Standard Edition (64-bit). Change data capture is only available in the Enterprise, Developer, and Enterprise Evaluation editions. (22988)
+
 ```shell
 (1) ใช้คำสั่ง Query เพื่อเปิด CDC สำหรับฐานข้อมูล
 EXEC sys.sp_cdc_enable_db
@@ -68,41 +77,41 @@ EXEC sys.sp_cdc_enable_table
 @supports_net_changes = 1;
 
 (3) สร้าง function เพื่อเปิด cdc ทีเดียว
-######## start copy ######## 
-create procedure sp_enable_disable_cdc_all_tables(@dbname varchar(100), @enable bit)  
-as  
-BEGIN TRY  
-DECLARE @source_name varchar(400);  
-declare @sql varchar(1000)  
-DECLARE the_cursor CURSOR FAST_FORWARD FOR  
-SELECT table_name  
-FROM INFORMATION_SCHEMA.TABLES where TABLE_CATALOG=@dbname and table_schema='dbo' and table_name != 'systranschemas'  
-OPEN the_cursor  
-FETCH NEXT FROM the_cursor INTO @source_name  
-WHILE @@FETCH_STATUS = 0  
-BEGIN  
-if @enable = 1  
-set @sql =' Use '+ @dbname+ ';EXEC sys.sp_cdc_enable_table  
-            @source_schema = N''dbo'',@source_name = '+@source_name+'  
-          , @role_name = N'''+'dbo'+''''       
-else  
-set @sql =' Use '+ @dbname+ ';EXEC sys.sp_cdc_disable_table  
-            @source_schema = N''dbo'',@source_name = '+@source_name+',  @capture_instance =''all'''  
-exec(@sql)  
-  FETCH NEXT FROM the_cursor INTO @source_name  
-END  
-CLOSE the_cursor  
-DEALLOCATE the_cursor  
-SELECT 'Successful'  
-END TRY  
-BEGIN CATCH  
-CLOSE the_cursor  
-DEALLOCATE the_cursor  
-    SELECT   
-        ERROR_NUMBER() AS ErrorNumber  
-        ,ERROR_MESSAGE() AS ErrorMessage;  
-END CATCH  
-######## END copy ######## 
+######## start copy ########
+create procedure sp_enable_disable_cdc_all_tables(@dbname varchar(100), @enable bit)
+as
+BEGIN TRY
+DECLARE @source_name varchar(400);
+declare @sql varchar(1000)
+DECLARE the_cursor CURSOR FAST_FORWARD FOR
+SELECT table_name
+FROM INFORMATION_SCHEMA.TABLES where TABLE_CATALOG=@dbname and table_schema='dbo' and table_name != 'systranschemas'
+OPEN the_cursor
+FETCH NEXT FROM the_cursor INTO @source_name
+WHILE @@FETCH_STATUS = 0
+BEGIN
+if @enable = 1
+set @sql =' Use '+ @dbname+ ';EXEC sys.sp_cdc_enable_table
+            @source_schema = N''dbo'',@source_name = '+@source_name+'
+          , @role_name = N'''+'dbo'+''''
+else
+set @sql =' Use '+ @dbname+ ';EXEC sys.sp_cdc_disable_table
+            @source_schema = N''dbo'',@source_name = '+@source_name+',  @capture_instance =''all'''
+exec(@sql)
+  FETCH NEXT FROM the_cursor INTO @source_name
+END
+CLOSE the_cursor
+DEALLOCATE the_cursor
+SELECT 'Successful'
+END TRY
+BEGIN CATCH
+CLOSE the_cursor
+DEALLOCATE the_cursor
+    SELECT
+        ERROR_NUMBER() AS ErrorNumber
+        ,ERROR_MESSAGE() AS ErrorMessage;
+END CATCH
+######## END copy ########
 
 EXEC sp_enable_disable_cdc_all_tables "database",1
 
@@ -132,7 +141,7 @@ exit;
 ref: https://debezium.io/documentation/reference/connectors/oracle.html#_preparing_the_database
 ```
 
-## ตั้งค่า ไฟล์ docker-compose.yaml 
+## ตั้งค่า ไฟล์ docker-compose.yaml
 ```
 แก้ไข xxxxx ให้เป็น รหัสโรงพยาบาล
       - GROUP_ID=xxxxx_x
@@ -144,7 +153,7 @@ ref: https://debezium.io/documentation/reference/connectors/oracle.html#_prepari
       - CONNECT_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.xxxxx.keystore.jks
       - CONNECT_PRODUCER_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.xxxxx.keystore.jks
       - HOSPCODE=xxxxx
-      
+
  แก้ไข PPPPP ให้เป็น รหัสของ cert
       - CONNECT_PRODUCER_SSL_TRUSTSTORE_PASSWORD=PPPPP
       - CONNECT_PRODUCER_SSL_KEYSTORE_PASSWORD=PPPPP
@@ -152,7 +161,7 @@ ref: https://debezium.io/documentation/reference/connectors/oracle.html#_prepari
       - CONNECT_SSL_KEYSTORE_PASSWORD=PPPPP
       - CONNECT_SSL_KEY_PASSWORD=PPPPP
       - CONNECT_PRODUCER_SSL_KEY_PASSWORD=PPPPP
- ตั้งค่า port 
+ ตั้งค่า port
       จะมีให้ตั้งค่าอยู่ 2 จุด
       connect:
        ports:
@@ -162,7 +171,7 @@ ref: https://debezium.io/documentation/reference/connectors/oracle.html#_prepari
             - 80:80
       โดยแก้เพียงเลขทางซ้าย หาก port ชนกับ port ในเครื่องที่ติดตั้ง
  ```
- ## run docker-compose  
+ ## run docker-compose
  ```
     คำสั่ง docker-compose up -d
     ณ ตำแหน่งเดียวกับที่มีไฟล์ docker-compose.yaml อยู่
