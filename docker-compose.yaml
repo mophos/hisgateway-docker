@@ -30,6 +30,7 @@ services:
       - CONNECT_CONNECTOR_CLIENT_CONFIG_OVERRIDE_POLICY=All
     volumes: 
       - ./cert:/var/private/ssl
+    restart: always
     networks:
       gw-network:
         ipv4_address: 192.168.4.5
