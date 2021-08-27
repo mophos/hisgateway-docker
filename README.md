@@ -1,6 +1,6 @@
 # ขั้นตอนการติดตั้ง และขอใช้งาน
 ## สิทธิ์เข้าใช้งาน และ Certificate
-1. ส่งแบบฟอร์ม(https://moph.cc/_aHErjLjJ) ขอใช้บริการ ผ่านทางเมล saraban-ict@moph.go.th และ cc: standard@moph.mail.go.th 
+1. ส่งแบบฟอร์มขอใช้บริการ([download](https://moph.cc/_aHErjLjJ)) ผ่านทางเมล saraban-ict@moph.go.th และ cc: standard@moph.mail.go.th 
 2. เมื่อส่วนกลางอนุมัติเรียบร้อยแล้ว ไอทีรพ. สามารถกดขอ cert ในหน้าเว็บ https://gateway.moph.go.th/tutorial/homepage (ปุ่ม <button>Download Certificate</button>)
 ---
 <br>
