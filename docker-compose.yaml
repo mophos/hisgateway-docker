@@ -55,6 +55,23 @@ services:
     networks:
       gw-network:
         ipv4_address: 192.168.4.4
+  hisgateway-history-api:
+    image: mophos/hisgateway-history-api
+    restart: always
+    container_name: hisgateway-history-api
+    volumes: 
+      - ./cert:/var/private/ssl
+      - ./data:./var/data
+    environment: 
+      - PATH_CERT=/var/private/ssl
+      - PATH_DATA=/var/data
+      - SECRET_KEY=123456
+    links: 
+      - connect
+    pid: "host"
+    networks:
+      gw-network:
+        ipv4_address: 192.168.4.7
   hisgateway-mqtt:
     image: mophos/hisgateway-client-mqtt
     restart: always
