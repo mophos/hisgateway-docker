@@ -206,7 +206,7 @@
   ```
   curl -o hisgateway-docker.zip https://codeload.github.com/mophos/hisgateway-docker/zip/refs/heads/main
   ```
-  เมื่อ download เรียบร้อยร้อยให้เข้าไป path ที่มีไฟล์ `docker-compose.yaml` แล้วสร้าง folder `cert` 
+  เมื่อ download เรียบร้อยให้เข้าไป path ที่มีไฟล์ `docker-compose.yaml` แล้วสร้าง folder `cert` 
    
   นำไฟล์ Certificate ทั้งหมดที่ได้จาก [gateway.moph.go.th](https://gateway.moph.go.th/tutorial/homepage) วางใน folder `cert`
 
