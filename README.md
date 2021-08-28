@@ -69,7 +69,7 @@
 <details><summary>แสดงวิธี</summary>
 <p>
 
-1. Configuration options in my.cnf/my.ini
+1. Configuration options in my.cnf/my.ini วางใต้ `[mysqld]`
     ```
     server_id=10001
     log_bin=gwhis
