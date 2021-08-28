@@ -61,7 +61,7 @@ services:
     container_name: hisgateway-history-api
     volumes: 
       - ./cert:/var/private/ssl
-      - ./data:./var/data
+      - ./data:/var/data
     environment: 
       - PATH_CERT=/var/private/ssl
       - PATH_DATA=/var/data
