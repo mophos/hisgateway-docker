@@ -1,3 +1,3 @@
 cert/*
 data/*
-.env
+config/.env
