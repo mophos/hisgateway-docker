@@ -26,26 +26,27 @@ services:
       - CONNECT_PRODUCER_SECURITY_PROTOCOL=SSL
       - CONNECT_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM= 
       - CONNECT_PRODUCER_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM= 
-      - CONNECT_MAX_REQUEST_SIZE=10485760
+      - CONNECT_MAX_REQUEST_SIZE=104857600
       - CONNECT_CONNECTOR_CLIENT_CONFIG_OVERRIDE_POLICY=All
     volumes: 
       - ./cert:/var/private/ssl
+    restart: always
     networks:
       gw-network:
-        ipv4_address: 192.168.3.5
+        ipv4_address: 192.168.4.5
   hisgateway-web:
     image: mophos/hisgateway-client-web
     container_name: hisgateway-web
     restart: always
     networks:
       gw-network:
-        ipv4_address: 192.168.3.3
+        ipv4_address: 192.168.4.3
   hisgateway-api:
     image: mophos/hisgateway-client-api
     restart: always
     container_name: hisgateway-api
     environment: 
-      - KAFKA_CONNECT_ENDPOINT=http://192.168.3.5:8083
+      - KAFKA_CONNECT_ENDPOINT=http://192.168.4.5:8083
       - ICTPORTAL_ENDPOINT=https://oauth.moph.go.th/v1/login
       - SECRET_KEY=123456
     links: 
@@ -53,7 +54,24 @@ services:
     pid: "host"
     networks:
       gw-network:
-        ipv4_address: 192.168.3.4
+        ipv4_address: 192.168.4.4
+  hisgateway-history-api:
+    image: mophos/hisgateway-history-api
+    restart: always
+    container_name: hisgateway-history-api
+    volumes: 
+      - ./cert:/var/private/ssl
+      - ./data:/var/data
+    environment: 
+      - PATH_CERT=/var/private/ssl
+      - PATH_DATA=/var/data
+      - SECRET_KEY=123456
+    links: 
+      - connect
+    pid: "host"
+    networks:
+      gw-network:
+        ipv4_address: 192.168.4.7
   hisgateway-mqtt:
     image: mophos/hisgateway-client-mqtt
     restart: always
@@ -61,6 +79,9 @@ services:
     environment: 
       - HOSPCODE=xxxxx
     pid: "host"
+    networks:
+      gw-network:
+        ipv4_address: 192.168.4.6
   nginx:
     image: nginx:1.13.0-alpine
     container_name: nginx
@@ -71,10 +92,10 @@ services:
       - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
     networks:
       gw-network:
-        ipv4_address: 192.168.3.2
+        ipv4_address: 192.168.4.2
 networks:
   gw-network:
     driver: bridge
     ipam:
       config:
-        - subnet: 192.168.3.0/24
+        - subnet: 192.168.4.0/24
