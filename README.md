@@ -1,6 +1,6 @@
 # ขั้นตอนการติดตั้ง และขอใช้งาน
 ## สิทธิ์เข้าใช้งาน และ Certificate
-1. ส่งแบบฟอร์มขอใช้บริการ([download](https://moph.cc/_aHErjLjJ)) ผ่านทางเมล saraban0212@moph.go.th และ cc: standard@moph.mail.go.th 
+1. ส่งแบบฟอร์มขอใช้บริการ([download](https://moph.cc/_aHErjLjJ)) ผ่านทางเมล saraban0212@moph.go.th และ cc: standard@moph.mail.go.th
 2. เมื่อส่วนกลางอนุมัติเรียบร้อยแล้ว ไอทีรพ. สามารถกดขอ cert ในหน้าเว็บ https://gateway.moph.go.th/tutorial/homepage (ปุ่ม <button>Download Certificate</button>)
 ---
 <br>
@@ -27,26 +27,26 @@
 <details><summary>แสดงวิธี</summary>
 <p>
 
-### Postgres 
+### Postgres
 <details>
   <summary>แสดงวิธี</summary>
   <p>
 
    1. Install plugin
-   	- CentOS: 
+   	- CentOS:
            ```
            sudo yum install wal2json<version>
            ```
-   	- Ubuntu: 
+   	- Ubuntu:
      	    ```
            sudo apt-get install postgresql-<version>-wal2json
            ```
-       
+
        **example** Postgres V.13: `wal2json13` | `postgresql-13-wal2json`
-       
+
        ***ref:*** [htps://github.com/eulerto/wal2json](htps://github.com/eulerto/wal2json)
    2. Configuration options in postgresql.conf:
-       ``` 
+       ```
        wal_level = logical;
        max_replication_slots = 10;
        shared_preload_libraries = 'wal2json'
@@ -79,7 +79,7 @@
 
     ;บางเวอร์ชั่นใช้ binlog_expire_logs_seconds=
     expire_logs_days=7
-   
+
     ;กรณีตั้งค่าที่เครื่อง slave โดยใช้ของ mysql ถ้าเป็น slave โดยใช้ tools hosxp ไม่ต้องใส่
     log_slave_updates=on
     ```
@@ -95,13 +95,22 @@
 <details><summary>แสดงวิธี</summary>
 <p>
 
+> #### **IMPORTANT**
+> **Change data capture (CDC) is only available in the Enterprise, Developer, and Enterprise Evaluation editions**
+
+ถ้าหากใช้ Standard Edition จะรันคำสั่งนี้ไม่ได้ `EXEC sys.sp_cdc_enable_db` และจะติด Error ดังนี้
+
+> Msg 22988, Level 16, State 1, Server NAME, Procedure sp_cdc_enable_db,
+This instance of SQL Server is the Standard Edition (64-bit). Change data capture is only available in the Enterprise, Developer, and Enterprise Evaluation editions.
+> [42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]This instance of SQL Server is the Standard Edition (64-bit). Change data capture is only available in the Enterprise, Developer, and Enterprise Evaluation editions. (22988)
+
 1. ใช้คำสั่ง Query เพื่อเปิด CDC สำหรับฐานข้อมูล
     ```
     EXEC sys.sp_cdc_enable_db
     ```
 
 2. ใช้คำสั่ง Query เพื่อเปิด CDC ให้กับตาราง
-    
+
     - ทีละตาราง
         ```
         EXEC sys.sp_cdc_enable_table
@@ -115,38 +124,38 @@
     - สร้าง function เพื่อเปิด cdc ทีเดียว
         ```
         create procedure sp_enable_disable_cdc_all_tables(@dbname varchar(100), @enable bit)
-        as  
-        BEGIN TRY  
-        DECLARE @source_name varchar(400);  
-        declare @sql varchar(1000)  
-        DECLARE the_cursor CURSOR FAST_FORWARD FOR  
-        SELECT table_name  
-        FROM INFORMATION_SCHEMA.TABLES where TABLE_CATALOG=@dbname and table_schema='dbo' and table_name != 'systranschemas'  
-        OPEN the_cursor  
-        FETCH NEXT FROM the_cursor INTO @source_name  
-        WHILE @@FETCH_STATUS = 0  
-        BEGIN  
-        if @enable = 1  
-        set @sql =' Use '+ @dbname+ ';EXEC sys.sp_cdc_enable_table  
-                    @source_schema = N''dbo'',@source_name = '+@source_name+'  
-                , @role_name = N'''+'dbo'+''''       
-        else  
-        set @sql =' Use '+ @dbname+ ';EXEC sys.sp_cdc_disable_table  
-                    @source_schema = N''dbo'',@source_name = '+@source_name+',  @capture_instance =''all'''  
-        exec(@sql)  
-        FETCH NEXT FROM the_cursor INTO @source_name  
-        END  
-        CLOSE the_cursor  
-        DEALLOCATE the_cursor  
-        SELECT 'Successful'  
-        END TRY  
-        BEGIN CATCH  
-        CLOSE the_cursor  
-        DEALLOCATE the_cursor  
-            SELECT   
-                ERROR_NUMBER() AS ErrorNumber  
-                ,ERROR_MESSAGE() AS ErrorMessage;  
-        END CATCH  
+        as
+        BEGIN TRY
+        DECLARE @source_name varchar(400);
+        declare @sql varchar(1000)
+        DECLARE the_cursor CURSOR FAST_FORWARD FOR
+        SELECT table_name
+        FROM INFORMATION_SCHEMA.TABLES where TABLE_CATALOG=@dbname and table_schema='dbo' and table_name != 'systranschemas'
+        OPEN the_cursor
+        FETCH NEXT FROM the_cursor INTO @source_name
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+        if @enable = 1
+        set @sql =' Use '+ @dbname+ ';EXEC sys.sp_cdc_enable_table
+                    @source_schema = N''dbo'',@source_name = '+@source_name+'
+                , @role_name = N'''+'dbo'+''''
+        else
+        set @sql =' Use '+ @dbname+ ';EXEC sys.sp_cdc_disable_table
+                    @source_schema = N''dbo'',@source_name = '+@source_name+',  @capture_instance =''all'''
+        exec(@sql)
+        FETCH NEXT FROM the_cursor INTO @source_name
+        END
+        CLOSE the_cursor
+        DEALLOCATE the_cursor
+        SELECT 'Successful'
+        END TRY
+        BEGIN CATCH
+        CLOSE the_cursor
+        DEALLOCATE the_cursor
+            SELECT
+                ERROR_NUMBER() AS ErrorNumber
+                ,ERROR_MESSAGE() AS ErrorMessage;
+        END CATCH
         ```
       ```
       EXEC sp_enable_disable_cdc_all_tables "database",1
@@ -155,7 +164,7 @@
     ```
     SELECT t.name, t.is_tracked_by_cdc FROM sys.tables t WHERE t.is_tracked_by_cdc = 1;
     ```
-    
+
 </p>
 </details>
 
@@ -200,20 +209,20 @@
   ```
   wget
   ```
-  wget -o hisgateway-docker.zip https://codeload.github.com/mophos/hisgateway-docker/zip/refs/heads/main 
+  wget -o hisgateway-docker.zip https://codeload.github.com/mophos/hisgateway-docker/zip/refs/heads/main
   ```
   curl
   ```
   curl -o hisgateway-docker.zip https://codeload.github.com/mophos/hisgateway-docker/zip/refs/heads/main
   ```
-  เมื่อ download เรียบร้อยให้เข้าไป path ที่มีไฟล์ `docker-compose.yaml` แล้วสร้าง folder `cert` 
-   
+  เมื่อ download เรียบร้อยให้เข้าไป path ที่มีไฟล์ `docker-compose.yaml` แล้วสร้าง folder `cert`
+
   นำไฟล์ Certificate ทั้งหมดที่ได้จาก [gateway.moph.go.th](https://gateway.moph.go.th/tutorial/homepage) วางใน folder `cert`
 
---- 
+---
 <br>
 
-## ตั้งค่า ไฟล์ docker-compose.yaml 
+## ตั้งค่า ไฟล์ docker-compose.yaml
 
 แก้ไข `xxxxx` ให้เป็น รหัสโรงพยาบาล
 ```
@@ -258,7 +267,7 @@ nginx:
 ---
 <br>
 
- ## run docker-compose  
+ ## run docker-compose
 คำสั่ง (ใช้ ณ ตำแหน่งเดียวกับที่มีไฟล์ docker-compose.yaml อยู่)
   ```
   docker-compose up -d
