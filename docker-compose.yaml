@@ -7,9 +7,9 @@ services:
       - 8083:8083
     environment:
       - GROUP_ID=${HOSPCODE}_${GROUP}
-      - CONFIG_STORAGE_TOPIC=${HOSPCODE}_hisgateway_connect_configs
-      - OFFSET_STORAGE_TOPIC=${HOSPCODE}_hisgateway_connect_offsets
-      - STATUS_STORAGE_TOPIC=${HOSPCODE}_hisgateway_connect_statuses
+      - CONFIG_STORAGE_TOPIC=${HOSPCODE}-${GROUP}_hisgateway_connect_configs
+      - OFFSET_STORAGE_TOPIC=${HOSPCODE}-${GROUP}_hisgateway_connect_offsets
+      - STATUS_STORAGE_TOPIC=${HOSPCODE}-${GROUP}_hisgateway_connect_statuses
       - CONNECT_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.${HOSPCODE}.truststore.jks
       - CONNECT_PRODUCER_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.${HOSPCODE}.truststore.jks
       - CONNECT_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.${HOSPCODE}.keystore.jks
