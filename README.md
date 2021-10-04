@@ -222,47 +222,26 @@ This instance of SQL Server is the Standard Edition (64-bit). Change data captur
 ---
 <br>
 
-## ตั้งค่า ไฟล์ docker-compose.yaml
+## แก้ไข config ไฟล์ .env
 
 แก้ไข `xxxxx` ให้เป็น รหัสโรงพยาบาล
 ```
-- GROUP_ID=xxxxx_x
-- CONFIG_STORAGE_TOPIC=xxxxx_hisgateway_connect_configs
-- OFFSET_STORAGE_TOPIC=xxxxx_hisgateway_connect_offsets
-- STATUS_STORAGE_TOPIC=xxxxx_hisgateway_connect_statuses
-- CONNECT_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.xxxxx.truststore.jks
-- CONNECT_PRODUCER_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.xxxxx.truststore.jks
-- CONNECT_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.xxxxx.keystore.jks
-- CONNECT_PRODUCER_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.xxxxx.keystore.jks
-- HOSPCODE=xxxxx
+HOSCODE=xxxxx
 ```
-- `GROUP_ID=xxxxx_x` เปลี่ยน `_x` เมื่อ 1 รพ.สร้างมากกว่า 1 group
-<br>
-<br>
-
+    
+`GROUP=1` เปลี่ยนเมื่อ 1 รพ.สร้างมากกว่า 1 group
+```
+GROUP=1
+```
+    
 แก้ไข `PPPPP` ให้เป็น รหัสของ cert (ในไฟล์ `password_xxxxx.txt`)
-
- ```
-  - CONNECT_PRODUCER_SSL_TRUSTSTORE_PASSWORD=PPPPP
-  - CONNECT_PRODUCER_SSL_KEYSTORE_PASSWORD=PPPPP
-  - CONNECT_SSL_TRUSTSTORE_PASSWORD=PPPPP
-  - CONNECT_SSL_KEYSTORE_PASSWORD=PPPPP
-  - CONNECT_SSL_KEY_PASSWORD=PPPPP
-  - CONNECT_PRODUCER_SSL_KEY_PASSWORD=PPPPP
 ```
-<br>
-<br>
-
-ตั้งค่า `port` จะมีให้ตั้งค่าอยู่ `2 จุด`
-- `ตั้งค่าเมื่อ` port ชนกับ port ในเครื่องที่ติดตั้ง
-- **`โดยแก้เพียงเลขทางซ้าย`**
+PASSWORD=PPPPP
 ```
-connect:
-  ports:
-      - 8083:8083
-nginx:
-  port:
-      - 80:80
+    
+ตั้งค่า `port ที่จะเปิดเว็บ` 
+```
+PORT=80
 ```
 ---
 <br>
