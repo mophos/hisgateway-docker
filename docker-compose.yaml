@@ -31,6 +31,9 @@ services:
     volumes: 
       - ./cert:/var/private/ssl
     restart: always
+    dns:   
+      - 8.8.8.8
+      - 203.157.19.113
     networks:
       gw-network:
         ipv4_address: 192.168.4.5
@@ -59,6 +62,9 @@ services:
     image: mophos/hisgateway-history-api
     restart: always
     container_name: hisgateway-history-api
+    dns:   
+      - 8.8.8.8
+      - 203.157.19.113
     volumes: 
       - ./cert:/var/private/ssl
       - ./data:/var/data
@@ -79,6 +85,9 @@ services:
     environment: 
       - HOSPCODE=xxxxx
     pid: "host"
+    dns:   
+      - 8.8.8.8
+      - 203.157.19.113
     networks:
       gw-network:
         ipv4_address: 192.168.4.6
