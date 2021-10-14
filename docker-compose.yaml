@@ -20,8 +20,8 @@ services:
       - CONNECT_SSL_KEYSTORE_PASSWORD=${PASSWORD}
       - CONNECT_SSL_KEY_PASSWORD=${PASSWORD}
       - CONNECT_PRODUCER_SSL_KEY_PASSWORD=${PASSWORD}
-      - BOOTSTRAP_SERVERS=broker1.gateway.moph.go.th:9093,broker2.gateway.moph.go.th:9093,broker3.gateway.moph.go.th:9093,broker4.gateway.moph.go.th:9093,broker5.gateway.moph.go.th:9093
-      - CONNECT_PRODUCER_BOOTSTRAP_SERVERS=broker1.gateway.moph.go.th:9093,broker2.gateway.moph.go.th:9093,broker3.gateway.moph.go.th:9093,broker4.gateway.moph.go.th:9093,broker5.gateway.moph.go.th:9093
+      - BOOTSTRAP_SERVERS=broker1.gateway.moph.go.th:19093,broker2.gateway.moph.go.th:19093,broker3.gateway.moph.go.th:19093,broker4.gateway.moph.go.th:19093,broker5.gateway.moph.go.th:19093
+      - CONNECT_PRODUCER_BOOTSTRAP_SERVERS=broker1.gateway.moph.go.th:19093,broker2.gateway.moph.go.th:19093,broker3.gateway.moph.go.th:19093,broker4.gateway.moph.go.th:19093,broker5.gateway.moph.go.th:19093
       - CONNECT_SECURITY_PROTOCOL=SSL
       - CONNECT_PRODUCER_SECURITY_PROTOCOL=SSL
       - CONNECT_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM=
