@@ -64,7 +64,7 @@ services:
       - KAFKA_CONNECT_ENDPOINT=http://192.168.4.5:8083
       - ICTPORTAL_ENDPOINT=https://oauth.moph.go.th/v1/login
       - SECRET_KEY=123456
-     dns:   
+    dns:   
       - 8.8.8.8
       - 203.157.19.113
     links:
