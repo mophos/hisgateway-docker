@@ -41,7 +41,7 @@ services:
       - CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=3
       - CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR=3
     volumes:
-      - ./cert:/var/private/ssl
+      - ${PATH_CERT}:/var/private/ssl
     restart: always
     dns:   
       - 8.8.8.8
@@ -78,8 +78,8 @@ services:
       - 8.8.8.8
       - 203.157.19.113
     volumes: 
-      - ./cert:/var/private/ssl
-      - ./data:/var/data
+      - ${PATH_CERT}:/var/private/ssl
+      - ${PATH_DATA}:/var/data
     environment:
       - PATH_CERT=/var/private/ssl
       - PATH_DATA=/var/data
