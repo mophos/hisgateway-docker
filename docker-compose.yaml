@@ -77,32 +77,25 @@ services:
   hisgateway-history-api:
     image: mophos/hisgateway-history-api
     restart: always
-    container_name: hisgateway-history-api
+    container_name: history-api
     dns:   
       - 8.8.8.8
       - 203.157.19.113
     volumes: 
       - ${PATH_CERT}:/var/private/ssl
       - ${PATH_DATA}:/var/data
-    links:
-      - connect
-    pid: "host"
+    environment:
+      - PATH_CERT=/var/private/ssl
+      - PATH_DATA=/var/data
+      - HOSPCODE=${HOSPCODE}
+      - CERT_CA=hospcode-${HOSPCODE}.user-ca.crt
+      - CERT_KEY=hospcode-${HOSPCODE}.user.key
+      - CERT_CRT=hospcode-${HOSPCODE}.user.crt
+      - SECRET_KEY=${SECRET_KEY}
+      - BROKER_URL=${BROKER_URL}
     networks:
       gw-network:
         ipv4_address: 192.168.4.7
-  hisgateway-mqtt:
-    image: mophos/hisgateway-client-mqtt
-    restart: always
-    container_name: hisgateway-mqtt
-    environment:
-      - HOSPCODE=${HOSPCODE}
-    pid: "host"
-    dns:   
-      - 8.8.8.8
-      - 203.157.19.113
-    networks:
-      gw-network:
-        ipv4_address: 192.168.4.6
   nginx:
     image: nginx:1.13.0-alpine
     container_name: nginx
