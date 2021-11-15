@@ -11,34 +11,24 @@ services:
       - OFFSET_STORAGE_TOPIC=${HOSPCODE}-${GROUP}_hisgateway_connect_offsets
       - STATUS_STORAGE_TOPIC=${HOSPCODE}-${GROUP}_hisgateway_connect_statuses
       - CONNECT_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.${HOSPCODE}.truststore.jks
-      - CONNECT_SSL_TRUSTSTORE_PASSWORD=${PASSWORD}
-      - CONNECT_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.${HOSPCODE}.keystore.jks
-      - CONNECT_SSL_KEYSTORE_PASSWORD=${PASSWORD}
-      - CONNECT_SSL_KEY_PASSWORD=${PASSWORD}
       - CONNECT_PRODUCER_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.${HOSPCODE}.truststore.jks
+      - CONNECT_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.${HOSPCODE}.keystore.jks
       - CONNECT_PRODUCER_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.${HOSPCODE}.keystore.jks
       - CONNECT_PRODUCER_SSL_TRUSTSTORE_PASSWORD=${PASSWORD}
       - CONNECT_PRODUCER_SSL_KEYSTORE_PASSWORD=${PASSWORD}
+      - CONNECT_SSL_TRUSTSTORE_PASSWORD=${PASSWORD}
+      - CONNECT_SSL_KEYSTORE_PASSWORD=${PASSWORD}
+      - CONNECT_SSL_KEY_PASSWORD=${PASSWORD}
       - CONNECT_PRODUCER_SSL_KEY_PASSWORD=${PASSWORD}
+      - BOOTSTRAP_SERVERS=${BROKER_URL}
       - CONNECT_PRODUCER_BOOTSTRAP_SERVERS=${BROKER_URL}
-      - CONNECT_PRODUCER_SECURITY_PROTOCOL=SSL
-      - CONNECT_PRODUCER_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM= 
-      
-      - CONNECT_CONSUMER_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.${HOSPCODE}.truststore.jks
-      - CONNECT_CONSUMER_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.${HOSPCODE}.keystore.jks
-      - CONNECT_CONSUMER_SSL_TRUSTSTORE_PASSWORD=${PASSWORD}
-      - CONNECT_CONSUMER_SSL_KEYSTORE_PASSWORD=${PASSWORD}
-      - CONNECT_CONSUMER_SSL_KEY_PASSWORD=${PASSWORD}
       - CONNECT_CONSUMER_BOOTSTRAP_SERVERS=${BROKER_URL}
-      - CONNECT_CONSUMER_SECURITY_PROTOCOL=SSL
-      - CONNECT_CONSUMER_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM= 
       - CONNECT_SECURITY_PROTOCOL=SSL
-      - CONNECT_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM= 
-      - CONNECT_MAX_REQUEST_SIZE=10485760
+      - CONNECT_PRODUCER_SECURITY_PROTOCOL=SSL
+      - CONNECT_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM=
+      - CONNECT_PRODUCER_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM=
+      - CONNECT_MAX_REQUEST_SIZE=104857600
       - CONNECT_CONNECTOR_CLIENT_CONFIG_OVERRIDE_POLICY=All
-      - CONNECT_FETCH_MAX_WAIT_MS=30000
-      - CONNECT_FETCH_MIN_BYTES=1
-      - CONNECT_FETCH_MAX_BYTES=10485760
       - CONNECT_OFFSET_FLUSH_TIMEOUT_MS=90000
       - CONNECT_PRODUCER_BUFFER_MEMORY=90000
       - CONNECT_TOPIC_CREATION_DEFAULT_REPLICATION_FACTOR=3
@@ -51,9 +41,12 @@ services:
       - CONNECT_STATUS_STORAGE_REPLICATION_FACTOR=3
       - CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=3
       - CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR=3
-    volumes: 
-      - ./cert:/var/private/ssl
-      # - ./config/java.config:/etc/crypto-policies/back-ends/java.config
+    volumes:
+      - ${PATH_CERT}:/var/private/ssl
+    restart: always
+    dns:   
+      - 8.8.8.8
+      - 203.157.19.113
     networks:
       gw-network:
         ipv4_address: 192.168.4.5
@@ -65,33 +58,58 @@ services:
       gw-network:
         ipv4_address: 192.168.4.3
   hisgateway-api:
-    image: mophos/hisgateway-client-api:develop
+    image: mophos/hisgateway-client-api
     restart: always
     container_name: hisgateway-api
-    environment: 
+    environment:
       - KAFKA_CONNECT_ENDPOINT=http://192.168.4.5:8083
       - ICTPORTAL_ENDPOINT=https://oauth.moph.go.th/v1/login
       - SECRET_KEY=123456
-    links: 
+    dns:   
+      - 8.8.8.8
+      - 203.157.19.113
+    links:
       - connect
     pid: "host"
     networks:
       gw-network:
         ipv4_address: 192.168.4.4
+  hisgateway-history-api:
+    image: mophos/hisgateway-history-api
+    restart: always
+    container_name: hisgateway-history-api
+    dns:   
+      - 8.8.8.8
+      - 203.157.19.113
+    volumes: 
+      - ${PATH_CERT}:/var/private/ssl
+      - ${PATH_DATA}:/var/data
+    links:
+      - connect
+    pid: "host"
+    networks:
+      gw-network:
+        ipv4_address: 192.168.4.7
   hisgateway-mqtt:
     image: mophos/hisgateway-client-mqtt
     restart: always
     container_name: hisgateway-mqtt
-    environment: 
-      - HOSPCODE=41124
+    environment:
+      - HOSPCODE=${HOSPCODE}
     pid: "host"
+    dns:   
+      - 8.8.8.8
+      - 203.157.19.113
+    networks:
+      gw-network:
+        ipv4_address: 192.168.4.6
   nginx:
     image: nginx:1.13.0-alpine
     container_name: nginx
     restart: always
-    ports: 
-    - "80:80"
-    volumes: 
+    ports:
+    - "${PORT}:80"
+    volumes:
       - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
     networks:
       gw-network:
