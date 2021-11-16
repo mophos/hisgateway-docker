@@ -222,14 +222,14 @@ This instance of SQL Server is the Standard Edition (64-bit). Change data captur
 ---
 <br>
 
-## แก้ไข config ไฟล์ .env
+## คัดลอกไฟล์ env.text เป็น .env  และแก้ไขไฟล์ .env
 
 แก้ไข `xxxxx` ให้เป็น รหัสโรงพยาบาล
 ```
 HOSCODE=xxxxx
 ```
     
-`GROUP=1` เปลี่ยนเมื่อ 1 รพ.สร้างมากกว่า 1 group
+`GROUP=1` ใช้ค่า =1 เปลี่ยนเมื่อโรงพยาบาลมีมากกว่า 1 db ในการส่งข้อมูล
 ```
 GROUP=1
 ```
@@ -243,6 +243,11 @@ PASSWORD=PPPPP
 ```
 PORT=80
 ```
+    
+ตั้งค่า `SECRET_KEY เป็นอะไรก็ได้` 
+```
+SECRET_KEY=12345
+```
 ---
 <br>
 
@@ -253,8 +258,7 @@ PORT=80
   ```
 ---
 ## เข้าใช้งาน web
-- เข้าผ่าน `localhost:80` ของเครื่องที่ติดตั้ง (port จะใช้ตาม nginx ที่ตั้งในไฟล์ docker-compose.yaml)
-- port จะขึ้นกับ port ที่ตั้งใน nginx
+- เข้าผ่าน `localhost:80` ของเครื่องที่ติดตั้ง (port จะใช้ตามไฟล์ .env PORT=)
 ---
 ## การสร้าง connectors
 1. กด <button>+ New Connector</button>

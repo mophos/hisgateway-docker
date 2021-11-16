@@ -1,7 +1,7 @@
 version: '2'
 services:
   connect:
-    image: debezium/connect:1.6
+    image: debezium/connect:1.7
     container_name: connect
     ports:
       - 8083:8083
@@ -20,8 +20,9 @@ services:
       - CONNECT_SSL_KEYSTORE_PASSWORD=${PASSWORD}
       - CONNECT_SSL_KEY_PASSWORD=${PASSWORD}
       - CONNECT_PRODUCER_SSL_KEY_PASSWORD=${PASSWORD}
-      - BOOTSTRAP_SERVERS=broker1.gateway.moph.go.th:19093,broker2.gateway.moph.go.th:19093,broker3.gateway.moph.go.th:19093,broker4.gateway.moph.go.th:19093,broker5.gateway.moph.go.th:19093
-      - CONNECT_PRODUCER_BOOTSTRAP_SERVERS=broker1.gateway.moph.go.th:19093,broker2.gateway.moph.go.th:19093,broker3.gateway.moph.go.th:19093,broker4.gateway.moph.go.th:19093,broker5.gateway.moph.go.th:19093
+      - BOOTSTRAP_SERVERS=${BROKER_URL}
+      - CONNECT_PRODUCER_BOOTSTRAP_SERVERS=${BROKER_URL}
+      - CONNECT_CONSUMER_BOOTSTRAP_SERVERS=${BROKER_URL}
       - CONNECT_SECURITY_PROTOCOL=SSL
       - CONNECT_PRODUCER_SECURITY_PROTOCOL=SSL
       - CONNECT_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM=
@@ -76,7 +77,7 @@ services:
   hisgateway-history-api:
     image: mophos/hisgateway-history-api
     restart: always
-    container_name: hisgateway-history-api
+    container_name: history-api
     dns:   
       - 8.8.8.8
       - 203.157.19.113
@@ -86,26 +87,15 @@ services:
     environment:
       - PATH_CERT=/var/private/ssl
       - PATH_DATA=/var/data
-      - SECRET_KEY=123456
-    links:
-      - connect
-    pid: "host"
+      - HOSPCODE=${HOSPCODE}
+      - CERT_CA=hospcode-${HOSPCODE}.user-ca.crt
+      - CERT_KEY=hospcode-${HOSPCODE}.user.key
+      - CERT_CRT=hospcode-${HOSPCODE}.user.crt
+      - SECRET_KEY=${SECRET_KEY}
+      - BROKER_URL=${BROKER_URL}
     networks:
       gw-network:
         ipv4_address: 192.168.4.7
-  hisgateway-mqtt:
-    image: mophos/hisgateway-client-mqtt
-    restart: always
-    container_name: hisgateway-mqtt
-    environment:
-      - HOSPCODE=${HOSPCODE}
-    pid: "host"
-    dns:   
-      - 8.8.8.8
-      - 203.157.19.113
-    networks:
-      gw-network:
-        ipv4_address: 192.168.4.6
   nginx:
     image: nginx:1.13.0-alpine
     container_name: nginx
