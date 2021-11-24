@@ -203,7 +203,9 @@ This instance of SQL Server is the Standard Edition (64-bit). Change data captur
 <br>
 
 ## Download Hisgateway Project
-  git clone
+    1.สร้าง folder hisgateway 
+    2.Download 
+  git clone (Recommend)  หากไม่มี git ให้ install git ก่อน
   ```
   git clone https://github.com/mophos/hisgateway-docker.git
   ```
@@ -215,14 +217,14 @@ This instance of SQL Server is the Standard Edition (64-bit). Change data captur
   ```
   curl -o hisgateway-docker.zip https://codeload.github.com/mophos/hisgateway-docker/zip/refs/heads/main
   ```
-  เมื่อ download เรียบร้อยให้เข้าไป path ที่มีไฟล์ `docker-compose.yaml` แล้วสร้าง folder `cert`
+    3.เมื่อ download เรียบร้อยให้สร้างโฟวเดอร์ certในโฟวเดอร์ hisgateway  (ด้านนอกโฟวเดอร์ hisgateway-docker)
 
-  นำไฟล์ Certificate ทั้งหมดที่ได้จาก [gateway.moph.go.th](https://gateway.moph.go.th/tutorial/homepage) วางใน folder `cert`
+  นำไฟล์ Certificate ทั้งหมดที่ได้จาก [hisgateway.moph.go.th](https://hisgateway.moph.go.th/tutorial/homepage) วางใน folder `cert`
 
 ---
 <br>
 
-## คัดลอกไฟล์ env.text เป็น .env  และแก้ไขไฟล์ .env
+## คัดลอกไฟล์ env.text เป็น .env  และแก้ไขไฟล์ .env  (มี . นำหน้า และไม่มีสกุล.text)
 
 แก้ไข `xxxxx` ให้เป็น รหัสโรงพยาบาล
 ```
