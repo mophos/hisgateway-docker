@@ -280,10 +280,10 @@ SECRET_KEY=12345
     # ติดต่อสอบถาม line @hisgateway
 ![QR](https://qr-official.line.me/sid/M/992qwkma.png)
 
---- Domain (IP) ---
+Domain (IP) -
 kafka1.moph.go.th (203.157.100.45)
     
---- Port ขาออก ---
+Port ขาออก -
 9093
 19093
 31888
