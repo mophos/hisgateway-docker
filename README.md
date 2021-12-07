@@ -279,3 +279,12 @@ SECRET_KEY=12345
        นำ password จากในไฟล์ `password_xxxxx.txt` มาใส่
     # ติดต่อสอบถาม line @hisgateway
 ![QR](https://qr-official.line.me/sid/M/992qwkma.png)
+
+--- Domain (IP) ---
+kafka1.moph.go.th (203.157.100.45)
+    
+--- Port ขาออก ---
+9093
+19093
+31888
+31990-32000
