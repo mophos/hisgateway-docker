@@ -43,26 +43,27 @@ services:
       - CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR=3
     volumes:
       - ${PATH_CERT}:/var/private/ssl
+      - ./config/java.config:/etc/crypto-policies/back-ends/java.config
     restart: always
     dns:   
       - 8.8.8.8
       - 203.157.19.113
     networks:
       gw-network:
-        ipv4_address: 192.168.4.5
+        ipv4_address: 10.222.222.5
   hisgateway-web:
     image: mophos/hisgateway-client-web
     container_name: hisgateway-web
     restart: always
     networks:
       gw-network:
-        ipv4_address: 192.168.4.3
+        ipv4_address: 10.222.222.3
   hisgateway-api:
     image: mophos/hisgateway-client-api
     restart: always
     container_name: hisgateway-api
     environment:
-      - KAFKA_CONNECT_ENDPOINT=http://192.168.4.5:8083
+      - KAFKA_CONNECT_ENDPOINT=http://10.222.222.5:8083
       - ICTPORTAL_ENDPOINT=https://oauth.moph.go.th/v1/login
       - SECRET_KEY=123456
       - HOSPCODE=${HOSPCODE}
@@ -75,7 +76,7 @@ services:
     pid: "host"
     networks:
       gw-network:
-        ipv4_address: 192.168.4.4
+        ipv4_address: 10.222.222.4
   hisgateway-history-api:
     image: mophos/hisgateway-history-api
     restart: always
@@ -97,7 +98,7 @@ services:
       - BROKER_URL=${BROKER_URL}
     networks:
       gw-network:
-        ipv4_address: 192.168.4.7
+        ipv4_address: 10.222.222.7
   nginx:
     image: nginx:1.13.0-alpine
     container_name: nginx
@@ -108,10 +109,10 @@ services:
       - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
     networks:
       gw-network:
-        ipv4_address: 192.168.4.2
+        ipv4_address: 10.222.222.2
 networks:
   gw-network:
     driver: bridge
     ipam:
       config:
-        - subnet: 192.168.4.0/24
+        - subnet: 10.222.222.0/24
