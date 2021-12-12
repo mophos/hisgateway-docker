@@ -65,7 +65,8 @@
 
 ---
 
-### Mysql
+### 
+      
 <details><summary>แสดงวิธี</summary>
 <p>
 
@@ -75,7 +76,6 @@
     log_bin=gwhis
     binlog_format=row
     binlog_do_db=ชื่อฐานข้อมูล
-    binlog_row_image=FULL
 
     ;บางเวอร์ชั่นใช้ binlog_expire_logs_seconds=
     expire_logs_days=7
