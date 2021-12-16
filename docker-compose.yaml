@@ -41,6 +41,9 @@ services:
       - CONNECT_STATUS_STORAGE_REPLICATION_FACTOR=3
       - CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=3
       - CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR=3
+      - CONNECT_OFFSET_STORAGE_PARTITIONS=1
+      - CONNECT_STATUS_STORAGE_PARTITIONS=1
+      - CONNECT_CONFIG_STORAGE_PARTITIONS=1
     volumes:
       - ${PATH_CERT}:/var/private/ssl
       - ./config/java.config:/etc/crypto-policies/back-ends/java.config
