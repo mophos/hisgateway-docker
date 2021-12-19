@@ -209,14 +209,6 @@ This instance of SQL Server is the Standard Edition (64-bit). Change data captur
   ```
   git clone https://github.com/mophos/hisgateway-docker.git
   ```
-  wget
-  ```
-  wget -o hisgateway-docker.zip https://codeload.github.com/mophos/hisgateway-docker/zip/refs/heads/main
-  ```
-  curl
-  ```
-  curl -o hisgateway-docker.zip https://codeload.github.com/mophos/hisgateway-docker/zip/refs/heads/main
-  ```
     3.เมื่อ download เรียบร้อยให้สร้างโฟวเดอร์ certในโฟวเดอร์ hisgateway  (ด้านนอกโฟวเดอร์ hisgateway-docker)
 
   นำไฟล์ Certificate ทั้งหมดที่ได้จาก [hisgateway.moph.go.th](https://hisgateway.moph.go.th/tutorial/homepage) วางใน folder `cert`
