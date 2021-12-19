@@ -270,6 +270,13 @@ SECRET_KEY=12345
    - ในส่วน keystore password และ truststore password
        นำ password จากในไฟล์ `password_xxxxx.txt` มาใส่
     # ติดต่อสอบถาม line @hisgateway
+ ## การอัพเดท
+1. เข้าไปในโฟลเดอร์ hisgateway-docker
+2. docker-compsoe down
+3. git pull origin main
+4. sh update.sh
+5. docker-compose up -d 
+---
 ![QR](https://qr-official.line.me/sid/M/992qwkma.png)
 
 Domain (IP) -
