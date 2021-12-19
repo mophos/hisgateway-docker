@@ -269,7 +269,6 @@ SECRET_KEY=12345
        แก้ไข `xxxxx` ให้เป็น รหัสโรงพยาบาล
    - ในส่วน keystore password และ truststore password
        นำ password จากในไฟล์ `password_xxxxx.txt` มาใส่
-    # ติดต่อสอบถาม line @hisgateway
  ## การอัพเดท
 1. เข้าไปในโฟลเดอร์ hisgateway-docker
 2. docker-compsoe down
@@ -277,6 +276,7 @@ SECRET_KEY=12345
 4. sh update.sh
 5. docker-compose up -d 
 ---
+# ติดต่อสอบถาม line @hisgateway
 ![QR](https://qr-official.line.me/sid/M/992qwkma.png)
 
 Domain (IP) -
