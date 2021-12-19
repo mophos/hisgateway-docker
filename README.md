@@ -269,10 +269,11 @@ SECRET_KEY=12345
        แก้ไข `xxxxx` ให้เป็น รหัสโรงพยาบาล
    - ในส่วน keystore password และ truststore password
        นำ password จากในไฟล์ `password_xxxxx.txt` มาใส่
+---
  ## การอัพเดท
 1. เข้าไปในโฟลเดอร์ hisgateway-docker
 2. docker-compsoe down
-3. git pull origin main
+3. git pull origin main หรือ git pull
 4. sh update.sh
 5. docker-compose up -d 
 ---
