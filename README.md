@@ -14,11 +14,10 @@
     - debian: [https://docs.docker.com/engine/install/debian](https://docs.docker.com/engine/install/debian)
     - fedora: [https://docs.docker.com/engine/install/fedora](https://docs.docker.com/engine/install/fedora)
     - ubuntu: [https://docs.docker.com/engine/install/ubuntu](https://docs.docker.com/engine/install/ubuntu)
-    
-    (run คำสั่ง sudo systemctl enable docker เพื่อให้ service docker start โดยอัตโนมัติ)
 
 2. ติดตั้ง Docker-compose
     - [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
+3. run คำสั่ง sudo systemctl enable docker เพื่อให้ service docker start โดยอัตโนมัติ
 </p>
 </details>
 
