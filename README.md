@@ -283,6 +283,7 @@ SECRET_KEY=12345
 
 Domain (IP) -
 kafka1.moph.go.th (203.157.100.45)
+mqtt.h4u.moph.go.th (203.157.103.140)
     
 Port ขาออก -
 9093
