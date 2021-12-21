@@ -273,7 +273,7 @@ SECRET_KEY=12345
 ---
  ## การอัพเดท
 1. เข้าไปในโฟลเดอร์ hisgateway-docker
-2. docker-compsoe down
+2. docker-compose down
 3. git pull origin main หรือ git pull
 4. sh update.sh
 5. docker-compose up -d 
