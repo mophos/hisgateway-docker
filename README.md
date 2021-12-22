@@ -283,7 +283,8 @@ SECRET_KEY=12345
 Domain (IP) -
 kafka1.moph.go.th (203.157.100.45)
 mqtt.h4u.moph.go.th (203.157.103.140)
-    
+ทดสอบการเชื่อมต่อ broker ด้วยคำสั่ง nc -vz kafka1.moph.go.th 31888 
+หรือ docker run -it --rm appropriate/nc -vz kafka1.moph.go.th 31888
 Port ขาออก -
 9093
 19093
