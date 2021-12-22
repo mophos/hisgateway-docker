@@ -86,8 +86,7 @@
     ```
 2. restart service mysql
 3. ทดสอบ Binlog โดยการเข้าไป Query ในฐานข้อมูลใช้คำสั่ง `SHOW BINARY LOGS;`
-- ***P.S.*** `GRANT CREATE, SELECT, RELOAD, SHOW DATABASES, REPLICATION SLAVE, REPLICATION CLIENT`
-
+- ***P.S.*** `GRANT LOCK, SELECT, RELOAD, REPLICATION SLAVE, REPLICATION CLIENT`
 </p>
 </details>
 
