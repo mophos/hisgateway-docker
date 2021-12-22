@@ -274,7 +274,7 @@ SECRET_KEY=12345
 1. เข้าไปในโฟลเดอร์ hisgateway-docker
 2. docker-compose down
 3. git pull origin main หรือ git pull
-4. sh update.sh
+4. run ไฟล์ update.sh
 5. docker-compose up -d 
 ---
 # ติดต่อสอบถาม line @hisgateway
