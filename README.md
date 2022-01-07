@@ -279,6 +279,21 @@ SECRET_KEY=12345
     - Add Connector(https://youtu.be/0UAA4l4sHUc)
     </p>
 ---
+    <details><summary>แสดงวิธี</summary>
+<p>
+
+1. ติดตั้ง Docker
+    - centos: [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
+    - debian: [https://docs.docker.com/engine/install/debian](https://docs.docker.com/engine/install/debian)
+    - fedora: [https://docs.docker.com/engine/install/fedora](https://docs.docker.com/engine/install/fedora)
+    - ubuntu: [https://docs.docker.com/engine/install/ubuntu](https://docs.docker.com/engine/install/ubuntu)
+
+2. ติดตั้ง Docker-compose
+    - [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
+3. run คำสั่ง sudo systemctl enable docker เพื่อให้ service docker start โดยอัตโนมัติ
+</p>
+</details>
+---
  ## การอัพเดท
 1. เข้าไปในโฟลเดอร์ hisgateway-docker
 2. docker-compose down
