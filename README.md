@@ -278,7 +278,7 @@ SECRET_KEY=12345
     - Add Connector(https://youtu.be/0UAA4l4sHUc)
 ---
 
-วิดีโอสอนติดตั้งในส่วนต่างๆ
+1.วิดีโอสอนติดตั้งในส่วนต่างๆ
     - Install docker cent: [https://youtu.be/7RBvP7jhhSk](https://youtu.be/7RBvP7jhhSk)
     - Install docker ubuntu: [https://youtu.be/if_P8VtBFms](https://youtu.be/if_P8VtBFms)
     - Install Hisgateway: [https://youtu.be/DJKZLkmRWhs](https://youtu.be/DJKZLkmRWhs)
