@@ -278,11 +278,12 @@ SECRET_KEY=12345
     - Add Connector(https://youtu.be/0UAA4l4sHUc)
 ---
 
-1. ติดตั้ง Docker
-    - centos: [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
-    - debian: [https://docs.docker.com/engine/install/debian](https://docs.docker.com/engine/install/debian)
-    - fedora: [https://docs.docker.com/engine/install/fedora](https://docs.docker.com/engine/install/fedora)
-    - ubuntu: [https://docs.docker.com/engine/install/ubuntu](https://docs.docker.com/engine/install/ubuntu)
+วิดีโอสอนติดตั้งในส่วนต่างๆ
+    - Install docker cent: [https://youtu.be/7RBvP7jhhSk](https://youtu.be/7RBvP7jhhSk)
+    - Install docker ubuntu: [https://youtu.be/if_P8VtBFms](https://youtu.be/if_P8VtBFms)
+    - Install Hisgateway: [https://youtu.be/DJKZLkmRWhs](https://youtu.be/DJKZLkmRWhs)
+    - Setting database mysql: [https://youtu.be/raVVZ0bWmjE](https://youtu.be/raVVZ0bWmjE)
+    - Add Connector : [https://youtu.be/0UAA4l4sHUc](https://youtu.be/0UAA4l4sHUc)
 ---
  ## การอัพเดท
 1. เข้าไปในโฟลเดอร์ hisgateway-docker
