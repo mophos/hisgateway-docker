@@ -271,16 +271,11 @@ SECRET_KEY=12345
        นำ password จากในไฟล์ `password_xxxxx.txt` มาใส่
 ---
 ## วิดีโอสอนติดตั้งในส่วนต่างๆ
-    1. ติดตั้ง Docker
-    - centos: [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
-    - debian: [https://docs.docker.com/engine/install/debian](https://docs.docker.com/engine/install/debian)
-    - fedora: [https://docs.docker.com/engine/install/fedora](https://docs.docker.com/engine/install/fedora)
-    - ubuntu: [https://docs.docker.com/engine/install/ubuntu](https://docs.docker.com/engine/install/ubuntu)
-    - Install docker cent : [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
-    - Install docker ubuntu : [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
-    - Install Hisgateway : [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
-    - Setting database mysql : [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
-    - Add Connector : [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
+    - Install docker cent(https://youtu.be/7RBvP7jhhSk)
+    - Install docker ubuntu(https://youtu.be/if_P8VtBFms)
+    - Install Hisgateway(https://youtu.be/DJKZLkmRWhs)
+    - Setting database mysql(https://youtu.be/raVVZ0bWmjE)
+    - Add Connector(https://youtu.be/0UAA4l4sHUc)
 ---
  ## การอัพเดท
 1. เข้าไปในโฟลเดอร์ hisgateway-docker
