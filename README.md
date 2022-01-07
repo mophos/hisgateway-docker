@@ -270,6 +270,12 @@ SECRET_KEY=12345
    - ในส่วน keystore password และ truststore password
        นำ password จากในไฟล์ `password_xxxxx.txt` มาใส่
 ---
+ ## วิดีโอสอนติดตั้งในส่วนต่างๆ
+    Install docker cent (https://youtu.be/7RBvP7jhhSk)
+    Install docker ubuntu (https://youtu.be/if_P8VtBFms)
+    Setting database mysql (https://youtu.be/raVVZ0bWmjE)
+    Add Connector (https://youtu.be/0UAA4l4sHUc)
+---
  ## การอัพเดท
 1. เข้าไปในโฟลเดอร์ hisgateway-docker
 2. docker-compose down
