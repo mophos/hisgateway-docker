@@ -270,12 +270,12 @@ SECRET_KEY=12345
    - ในส่วน keystore password และ truststore password
        นำ password จากในไฟล์ `password_xxxxx.txt` มาใส่
 ---
- ## วิดีโอสอนติดตั้งในส่วนต่างๆ
-    - Install docker cent : https://youtu.be/7RBvP7jhhSk
-    - Install docker ubuntu : https://youtu.be/if_P8VtBFms
-    - Install Hisgateway : https://youtu.be/DJKZLkmRWhs
-    - Setting database mysql : https://youtu.be/raVVZ0bWmjE
-    - Add Connector : https://youtu.be/0UAA4l4sHUc
+## วิดีโอสอนติดตั้งในส่วนต่างๆ
+    - Install docker cent : [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
+    - Install docker ubuntu : [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
+    - Install Hisgateway : [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
+    - Setting database mysql : [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
+    - Add Connector : [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
 ---
  ## การอัพเดท
 1. เข้าไปในโฟลเดอร์ hisgateway-docker
