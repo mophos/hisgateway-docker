@@ -271,6 +271,11 @@ SECRET_KEY=12345
        นำ password จากในไฟล์ `password_xxxxx.txt` มาใส่
 ---
 ## วิดีโอสอนติดตั้งในส่วนต่างๆ
+    1. ติดตั้ง Docker
+    - centos: [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
+    - debian: [https://docs.docker.com/engine/install/debian](https://docs.docker.com/engine/install/debian)
+    - fedora: [https://docs.docker.com/engine/install/fedora](https://docs.docker.com/engine/install/fedora)
+    - ubuntu: [https://docs.docker.com/engine/install/ubuntu](https://docs.docker.com/engine/install/ubuntu)
     - Install docker cent : [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
     - Install docker ubuntu : [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
     - Install Hisgateway : [https://docs.docker.com/engine/install/centos](https://docs.docker.com/engine/install/centos)
