@@ -297,5 +297,5 @@ Port ขาออก -
 31888
 31990-32000 
 ---
-ทดสอบการเชื่อมต่อ broker ด้วยคำสั่ง nc -vz kafka1.moph.go.th 31888 
-หรือ docker run -it --rm appropriate/nc -vz kafka1.moph.go.th 31888
+ทดสอบการเชื่อมต่อ broker ด้วยคำสั่ง nc -vz kafka1.moph.go.th 19093 
+หรือ docker run -it --rm appropriate/nc -vz kafka1.moph.go.th 19093
