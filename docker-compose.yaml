@@ -50,7 +50,7 @@ services:
       - ./config/java.config:/etc/crypto-policies/back-ends/java.config
     restart: always
     environment:
-      - PATH_DNS=config/resolv.conf
+      - PATH_DNS=./config/resolv.conf
     dns:   
       - 8.8.8.8
       - 203.157.19.113
@@ -77,7 +77,7 @@ services:
     volumes:
       - ${PATH_DNS}:/etc/resolv.conf
     environment:
-      - PATH_DNS=config/resolv.conf
+      - PATH_DNS=./config/resolv.conf
     dns:   
       - 8.8.8.8
       - 203.157.19.113
@@ -99,7 +99,7 @@ services:
       - ${PATH_CERT}:/var/private/ssl
       - ${PATH_DATA}:/var/data
     environment:
-      - PATH_DNS=config/resolv.conf
+      - PATH_DNS=./config/resolv.conf
       - PATH_CERT=/var/private/ssl
       - PATH_DATA=/var/data
       - HOSPCODE=${HOSPCODE}
