@@ -45,7 +45,7 @@ services:
       - CONNECT_STATUS_STORAGE_PARTITIONS=1
       - CONNECT_CONFIG_STORAGE_PARTITIONS=1
     volumes:
-      - /etc/resolv.conf:/etc/resolv.conf
+      - ${PATH_DNS}:/etc/resolv.conf
       - ${PATH_CERT}:/var/private/ssl
       - ./config/java.config:/etc/crypto-policies/back-ends/java.config
     restart: always
@@ -73,7 +73,7 @@ services:
       - HOSPCODE=${HOSPCODE}
       - BROKER_URL=${BROKER_URL}
     volumes:
-      - /etc/resolv.conf:/etc/resolv.conf
+      - ${PATH_DNS}:/etc/resolv.conf
     dns:   
       - 8.8.8.8
       - 203.157.19.113
@@ -91,7 +91,7 @@ services:
       - 8.8.8.8
       - 203.157.19.113
     volumes:
-      - /etc/resolv.conf:/etc/resolv.conf
+      - ${PATH_DNS}:/etc/resolv.conf
       - ${PATH_CERT}:/var/private/ssl
       - ${PATH_DATA}:/var/data
     environment:
