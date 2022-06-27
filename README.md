@@ -1,7 +1,8 @@
 # ขั้นตอนการติดตั้ง และขอใช้งาน
 ## สิทธิ์เข้าใช้งาน และ Certificate
 1. ส่งแบบฟอร์มขอใช้บริการ([download](https://moph.cc/_aHErjLjJ)) ผ่านทางเมล saraban0212@moph.go.th และ cc: standard@moph.mail.go.th
-2. เมื่อส่วนกลางอนุมัติเรียบร้อยแล้ว ไอทีรพ. สามารถกดขอ cert ในหน้าเว็บ https://hisgateway.moph.go.th/homepage (ปุ่ม <button>Download Certificate</button>)
+2. เมื่อส่วนกลางอนุมัติเรียบร้อยแล้ว ไอทีรพ. สามารถกดขอ cert ในหน้าเว็บ https://hisgateway.moph.go.th/homepage (ปุ่ม <button>Download Certificate</button>) 
+3. โดยใช้ User ของ http://ictportal.moph.go.th/
 ---
 <br>
 
@@ -86,8 +87,7 @@
     ```
 2. restart service mysql
 3. ทดสอบ Binlog โดยการเข้าไป Query ในฐานข้อมูลใช้คำสั่ง `SHOW BINARY LOGS;`
-- ***P.S.*** `GRANT CREATE, SELECT, RELOAD, SHOW DATABASES, REPLICATION SLAVE, REPLICATION CLIENT`
-
+- ***P.S.*** `GRANT LOCK, SELECT, RELOAD, REPLICATION SLAVE, REPLICATION CLIENT`
 </p>
 </details>
 
@@ -271,21 +271,38 @@ SECRET_KEY=12345
    - ในส่วน keystore password และ truststore password
        นำ password จากในไฟล์ `password_xxxxx.txt` มาใส่
 ---
+## วิดีโอสอนติดตั้งในส่วนต่างๆ
+- Install docker cent: [https://youtu.be/7RBvP7jhhSk](https://youtu.be/7RBvP7jhhSk)
+- Install docker ubuntu: [https://youtu.be/if_P8VtBFms](https://youtu.be/if_P8VtBFms)
+- Install Hisgateway: [https://youtu.be/DJKZLkmRWhs](https://youtu.be/DJKZLkmRWhs)
+- Setting database mysql: [https://youtu.be/raVVZ0bWmjE](https://youtu.be/raVVZ0bWmjE)
+- Add Connector : [https://youtu.be/0UAA4l4sHUc](https://youtu.be/0UAA4l4sHUc)
+---
  ## การอัพเดท
 1. เข้าไปในโฟลเดอร์ hisgateway-docker
+<<<<<<< HEAD
 2. `docker-compose down`
 3. `git pull origin main` หรือ `git pull`
 4. `sh update.sh`
 5. `docker-compose up -d`
+=======
+2. docker-compose down
+3. git pull origin main หรือ git pull
+4. run ไฟล์ update.sh
+5. docker-compose up -d 
+>>>>>>> 7829476d07504a25732ae8033a966f8955dae014
 ---
 # ติดต่อสอบถาม line @hisgateway
 ![QR](https://qr-official.line.me/sid/M/992qwkma.png)
 
 Domain (IP) -
 kafka1.moph.go.th (203.157.100.45)
-    
+mqtt.h4u.moph.go.th (203.157.103.140)
 Port ขาออก -
 9093
 19093
 31888
-31990-32000
+31990-32000 
+---
+ทดสอบการเชื่อมต่อ broker ด้วยคำสั่ง nc -vz kafka1.moph.go.th 19093 
+หรือ docker run -it --rm appropriate/nc -vz kafka1.moph.go.th 19093
