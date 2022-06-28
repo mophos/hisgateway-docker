@@ -1,7 +1,7 @@
 version: '2'
 services:
   connect:
-    image: debezium/connect:2.0
+    image: debezium/connect:1.7
     container_name: connect
     ports:
       - 8083:8083
