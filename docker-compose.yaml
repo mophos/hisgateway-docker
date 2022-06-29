@@ -6,7 +6,7 @@ services:
     ports:
       - 8083:8083
     environment:
-      - GROUP_ID=${HOSPCODE}_${GROUP}
+      - GROUP_ID=G_${HOSPCODE}_${GROUP}
       - CONFIG_STORAGE_TOPIC=${HOSPCODE}-${GROUP}_hisgateway_connect_configs
       - OFFSET_STORAGE_TOPIC=${HOSPCODE}-${GROUP}_hisgateway_connect_offsets
       - STATUS_STORAGE_TOPIC=${HOSPCODE}-${GROUP}_hisgateway_connect_statuses
