@@ -48,6 +48,8 @@ services:
       - ${PATH_DNS}:/etc/resolv.conf
       - ${PATH_CERT}:/var/private/ssl
       - ./config/java.config:/etc/crypto-policies/back-ends/java.config
+      - ./config/debezium-extension-1.4.0.Final.jar:/kafka/connect/debezium-connector-db2/debezium-extension-1.4.0.Final.jar
+      - ./config/debezium-extension-1.4.0.Final.jar:/kafka/connect/debezium-connector-mysql/debezium-extension-1.4.0.Final.jar
     restart: always
     dns:   
       - 8.8.8.8
