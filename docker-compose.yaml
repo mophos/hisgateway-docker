@@ -74,6 +74,7 @@ services:
       - SECRET_KEY=123456
       - HOSPCODE=${HOSPCODE}
       - BROKER_URL=${BROKER_URL}
+      - PASSWORD=${PASSWORD}
     volumes:
       - ${PATH_DNS}:/etc/resolv.conf
     dns:   
@@ -105,6 +106,7 @@ services:
       - CERT_CRT=hospcode-${HOSPCODE}.user.crt
       - SECRET_KEY=${SECRET_KEY}
       - BROKER_URL=${BROKER_URL}
+      - KAFKA_CONNECT_ENDPOINT=http://10.222.222.5:8083
     networks:
       gw-network:
         ipv4_address: 10.222.222.7
