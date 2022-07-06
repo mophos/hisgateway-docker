@@ -72,6 +72,7 @@ services:
       - SECRET_KEY=123456
       - HOSPCODE=${HOSPCODE}
       - BROKER_URL=${BROKER_URL}
+      - PASSWORD=${PASSWORD}
     volumes:
       - ${PATH_DNS}:/etc/resolv.conf
     dns:   
