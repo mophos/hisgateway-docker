@@ -1,0 +1,26 @@
+version: '2'
+services:
+  hisgateway-backend:
+    image: mophos/gw-api
+    restart: always
+    container_name: hisgateway-backend
+    dns:   
+      - 8.8.8.8
+      - 203.157.19.113
+    volumes:
+      - ./config/resolv.conf:/etc/resolv.conf
+      - ../data:/var/data
+    environment:
+      - PATH_DATA=/var/data
+      - PORT=80
+      - CLIENT_ID_OAUTH=FZqokAOswYDzgBvnihYE
+      - CLIENT_SECRET_OAUTH=PUTzmMoFhEl0UOvqThU4
+    networks: 
+      gw-network:
+        ipv4_address: 10.222.222.7
+networks:
+  gw-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.222.222.0/24
