@@ -11,10 +11,11 @@ services:
       - ./config/resolv.conf:/etc/resolv.conf
       - ../data:/var/data
     environment:
+      - URL_CALLBACK=https://hisgateway.moph.go.th/callback
       - PATH_DATA=/var/data
       - PORT=80
-      - CLIENT_ID_OAUTH=FZqokAOswYDzgBvnihYE
-      - CLIENT_SECRET_OAUTH=PUTzmMoFhEl0UOvqThU4
+      - CLIENT_ID_OAUTH=YNpbUuCrDmkdyVGqtXYp
+      - CLIENT_SECRET_OAUTH=uyPUOkvmASYtY41BU6K9
     networks: 
       gw-network:
         ipv4_address: 10.222.222.7
