@@ -1,126 +1,24 @@
 version: '2'
 services:
-  connect:
-    image: debezium/connect:1.7
-    container_name: connect
-    ports:
-      - 8083:8083
-    environment:
-      - GROUP_ID=G_${HOSPCODE}_${GROUP}
-      - CONFIG_STORAGE_TOPIC=G_${HOSPCODE}-${GROUP}_hisgateway_connect_configs
-      - OFFSET_STORAGE_TOPIC=G_${HOSPCODE}-${GROUP}_hisgateway_connect_offsets
-      - STATUS_STORAGE_TOPIC=G_${HOSPCODE}-${GROUP}_hisgateway_connect_statuses
-      - CONNECT_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.${HOSPCODE}.truststore.jks
-      - CONNECT_PRODUCER_SSL_TRUSTSTORE_LOCATION=/var/private/ssl/kafka.client.${HOSPCODE}.truststore.jks
-      - CONNECT_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.${HOSPCODE}.keystore.jks
-      - CONNECT_PRODUCER_SSL_KEYSTORE_LOCATION=/var/private/ssl/kafka.client.${HOSPCODE}.keystore.jks
-      - CONNECT_PRODUCER_BUFFER_MEMORY=104857600
-      - CONNECT_PRODUCER_SSL_TRUSTSTORE_PASSWORD=${PASSWORD}
-      - CONNECT_PRODUCER_SSL_KEYSTORE_PASSWORD=${PASSWORD}
-      - CONNECT_SSL_TRUSTSTORE_PASSWORD=${PASSWORD}
-      - CONNECT_SSL_KEYSTORE_PASSWORD=${PASSWORD}
-      - CONNECT_SSL_KEY_PASSWORD=${PASSWORD}
-      - CONNECT_PRODUCER_SSL_KEY_PASSWORD=${PASSWORD}
-      - BOOTSTRAP_SERVERS=${BROKER_URL}
-      - CONNECT_PRODUCER_BOOTSTRAP_SERVERS=${BROKER_URL}
-      - CONNECT_CONSUMER_BOOTSTRAP_SERVERS=${BROKER_URL}
-      - CONNECT_SECURITY_PROTOCOL=SSL
-      - CONNECT_PRODUCER_SECURITY_PROTOCOL=SSL
-      - CONNECT_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM=
-      - CONNECT_PRODUCER_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM=
-      - CONNECT_MAX_REQUEST_SIZE=104857600
-      - CONNECT_CONNECTOR_CLIENT_CONFIG_OVERRIDE_POLICY=All
-      - CONNECT_OFFSET_FLUSH_TIMEOUT_MS=90000
-      - CONNECT_TOPIC_CREATION_DEFAULT_REPLICATION_FACTOR=5
-      - CONNECT_TOPIC_CREATION_DEFAULT_PARTITIONS=3
-      - CONNECT_TOPIC_CREATION_DEFAULT_CLEANUP_POLICY=compact
-      - CONNECT_TOPIC_CREATION_DEFAULT_COMPRESSION_TYPE=lz4
-      - CONNECT_CONSUMER_REQUEST_TIMEOUT_MS=90000
-      - CONNECT_PRODUCER_REQUEST_TIMEOUT_MS=90000
-      - CONNECT_REQUEST_TIMEOUT_MS=90000
-      - CONNECT_STATUS_STORAGE_REPLICATION_FACTOR=5
-      - CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=5
-      - CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR=5
-      - CONNECT_OFFSET_STORAGE_PARTITIONS=1
-      - CONNECT_STATUS_STORAGE_PARTITIONS=1
-      - CONNECT_CONFIG_STORAGE_PARTITIONS=1
-    volumes:
-      - ${PATH_DNS}:/etc/resolv.conf
-      - ${PATH_CERT}:/var/private/ssl
-      - ./config/java.config:/etc/crypto-policies/back-ends/java.config
-      - ./config/debezium-extension-1.4.0.Final.jar:/kafka/connect/debezium-connector-db2/debezium-extension-1.4.0.Final.jar
-      - ./config/debezium-extension-1.4.0.Final.jar:/kafka/connect/debezium-connector-mysql/debezium-extension-1.4.0.Final.jar
+  hisgateway-backend:
+    image: mophos/gw-api
     restart: always
-    dns:   
-      - 8.8.8.8
-      - 203.157.19.113
-    networks:
-      gw-network:
-        ipv4_address: 10.222.222.5
-  hisgateway-web:
-    image: mophos/hisgateway-client-web
-    container_name: hisgateway-web
-    restart: always
-    networks:
-      gw-network:
-        ipv4_address: 10.222.222.3
-  hisgateway-api:
-    image: mophos/hisgateway-client-api
-    restart: always
-    container_name: hisgateway-api
-    environment:
-      - KAFKA_CONNECT_ENDPOINT=http://10.222.222.5:8083
-      - ICTPORTAL_ENDPOINT=https://oauth.moph.go.th/v1/login
-      - SECRET_KEY=123456
-      - HOSPCODE=${HOSPCODE}
-      - BROKER_URL=${BROKER_URL}
-      - PASSWORD=${PASSWORD}
-    volumes:
-      - ${PATH_DNS}:/etc/resolv.conf
-    dns:   
-      - 8.8.8.8
-      - 203.157.19.113
-    links:
-      - connect
-    pid: "host"
-    networks:
-      gw-network:
-        ipv4_address: 10.222.222.4
-  hisgateway-history-api:
-    image: mophos/hisgateway-history-api
-    restart: always
-    container_name: history-api
+    container_name: hisgateway-backend
     dns:   
       - 8.8.8.8
       - 203.157.19.113
     volumes:
-      - ${PATH_DNS}:/etc/resolv.conf
-      - ${PATH_CERT}:/var/private/ssl
-      - ${PATH_DATA}:/var/data
+      - ./config/resolv.conf:/etc/resolv.conf
+      - ../data:/var/data
     environment:
-      - PATH_CERT=/var/private/ssl
+      - URL_CALLBACK=https://hisgateway.moph.go.th/callback
       - PATH_DATA=/var/data
-      - HOSPCODE=${HOSPCODE}
-      - CERT_CA=hospcode-${HOSPCODE}.user-ca.crt
-      - CERT_KEY=hospcode-${HOSPCODE}.user.key
-      - CERT_CRT=hospcode-${HOSPCODE}.user.crt
-      - SECRET_KEY=${SECRET_KEY}
-      - BROKER_URL=${BROKER_URL}
-      - KAFKA_CONNECT_ENDPOINT=http://10.222.222.5:8083
-    networks:
+      - PORT=80
+      - CLIENT_ID_OAUTH=YNpbUuCrDmkdyVGqtXYp
+      - CLIENT_SECRET_OAUTH=uyPUOkvmASYtY41BU6K9
+    networks: 
       gw-network:
         ipv4_address: 10.222.222.7
-  nginx:
-    image: nginx:1.13.0-alpine
-    container_name: nginx
-    restart: always
-    ports:
-    - "${PORT}:80"
-    volumes:
-      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
-    networks:
-      gw-network:
-        ipv4_address: 10.222.222.2
 networks:
   gw-network:
     driver: bridge
