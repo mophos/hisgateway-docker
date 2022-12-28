@@ -13,7 +13,7 @@ services:
       - ./config/resolv.conf:/etc/resolv.conf
       - ../data:/var/data
     environment:
-      - URL_CALLBACK=https://hisgateway.moph.go.th/callback
+      - URL_CALLBACK=https://hisgateway.moph.go.th/gw/callback
       - PATH_DATA=/var/data
       - PORT=80
       - CLIENT_ID_OAUTH=YNpbUuCrDmkdyVGqtXYp
